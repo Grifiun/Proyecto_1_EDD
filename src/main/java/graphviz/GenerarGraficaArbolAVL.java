@@ -65,7 +65,7 @@ public class GenerarGraficaArbolAVL {
     private String getCodigoGraphviz() {
         return "digraph grafica{\n" +
                "\trankdir=TB;\n" +
-               "\tnode [shape = record, style=filled, fillcolor = seashell2];\n"+
+               "\tnode [shape = record, style=filled, fillcolor = honeydew2];\n"+
                 getCodigoInterno(raiz)+
                 "\t}\n";
     }

@@ -1,0 +1,76 @@
+digraph grafica{
+	rankdir=TB;
+	node [shape = box, style=filled, fillcolor = powderblue];
+	concentrate=true
+subgraph cluster_0 {
+		nodo0y0 [  label = "Indice"];
+		nodo0y1 [  label = "1"];
+		nodo0y2 [  label = "2"];
+		nodo0y3 [  label = "3"];
+		nodo0y4 [  label = "4"];
+
+		color=white;
+}
+subgraph cluster_1 {
+		nodo1y0 [  label = "1"];
+		nodo1y1 [ label = "#ffffff" fillcolor="#ffffff"];
+		nodo1y2 [ label = "#e74c3c" fillcolor="#e74c3c"];
+		nodo1y3 [ label = "#ea90fc" fillcolor="#ea90fc"];
+		nodo1y4 [ label = "#ea80fc" fillcolor="#ea80fc"];
+
+		color=white;
+}
+subgraph cluster_2 {
+		nodo2y0 [  label = "2"];
+		nodo2y1 [ label = "#e1bee7" fillcolor="#e1bee7"];
+		nodo2y2 [ label = "#afb83b" fillcolor="#afb83b"];
+		nodo2y3 [ label = "#299438" fillcolor="#299438"];
+		nodo2y4 [ label = "#93ceeb" fillcolor="#93ceeb"];
+
+		color=white;
+}
+		nodo0y0->nodo1y0 [constraint = false]
+		nodo0y0->nodo0y1
+		nodo0y1->nodo0y0
+		nodo0y1->nodo1y1 [constraint = false]
+		nodo0y1->nodo0y2
+		nodo0y2->nodo0y1
+		nodo0y2->nodo1y2 [constraint = false]
+		nodo0y2->nodo0y3
+		nodo0y3->nodo0y2
+		nodo0y3->nodo1y3 [constraint = false]
+		nodo0y3->nodo0y4
+		nodo0y4->nodo0y3
+		nodo0y4->nodo1y4 [constraint = false]
+		nodo1y0->nodo0y0 [constraint = false]
+		nodo1y0->nodo2y0 [constraint = false]
+		nodo1y0->nodo1y1
+		nodo1y1->nodo1y0
+		nodo1y1->nodo0y1 [constraint = false]
+		nodo1y1->nodo2y1 [constraint = false]
+		nodo1y1->nodo1y2
+		nodo1y2->nodo1y1
+		nodo1y2->nodo0y2 [constraint = false]
+		nodo1y2->nodo2y2 [constraint = false]
+		nodo1y2->nodo1y3
+		nodo1y3->nodo1y2
+		nodo1y3->nodo0y3 [constraint = false]
+		nodo1y3->nodo2y3 [constraint = false]
+		nodo1y3->nodo1y4
+		nodo1y4->nodo1y3
+		nodo1y4->nodo0y4 [constraint = false]
+		nodo1y4->nodo2y4 [constraint = false]
+		nodo2y0->nodo1y0 [constraint = false]
+		nodo2y0->nodo2y1
+		nodo2y1->nodo2y0
+		nodo2y1->nodo1y1 [constraint = false]
+		nodo2y1->nodo2y2
+		nodo2y2->nodo2y1
+		nodo2y2->nodo1y2 [constraint = false]
+		nodo2y2->nodo2y3
+		nodo2y3->nodo2y2
+		nodo2y3->nodo1y3 [constraint = false]
+		nodo2y3->nodo2y4
+		nodo2y4->nodo2y3
+		nodo2y4->nodo1y4 [constraint = false]
+	}

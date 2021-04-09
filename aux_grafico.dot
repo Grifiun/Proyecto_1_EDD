@@ -10,6 +10,7 @@ digraph grafica{
 		nodo10:C0->nodo5
 		nodo17 [ label = "<C0> |17| <C1>"];
 		nodo13 [ label = "13"];
-		nodo17:C0->nodo13
+		nodo17:C0->nodo13		
+		
 		nodo10:C1->nodo17
 	}
