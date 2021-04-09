@@ -1,0 +1,131 @@
+package gramatica;
+import java_cup.runtime.*;
+import gramatica.sym;
+import exercise;
+import DAO.Token;
+
+parser code{:
+    public String resultado = " ";
+
+    public parser(LexerLectura lexer){
+        super(lexer);
+    }
+:}
+
+terminal Token NUMERO;
+terminal Token LLAVES_INICIO;
+terminal Token LLAVES_FIN;
+terminal Token COMA;
+terminal Token DOS_PUNTOS;
+terminal Token PUNTO_COMA;
+terminal Token HEX;
+
+non terminal s;
+non terminal carga_masiva;
+non terminal lectura_capa;
+non terminal lectura_imagen;
+non terminal lectura_usuario;
+non terminal lectura_general;
+non terminal capa;
+non terminal imagen;
+non terminal usuario;
+non terminal bloque_capas;
+non terminal capa_unidad;
+non terminal conjunto_numeros;
+
+
+s ::= carga_masiva;
+
+carga_masiva ::= carga_masiva lectura_general
+    | lectura_general
+    ;
+
+lectura_general ::= lectura_capa
+    | lectura_imagen
+    | lectura_usuario 
+    ;
+
+lectura_capa ::= lectura_capa capa
+        {:
+            //El nodo capa se almacena el arbol binario de busqueda AVL
+        :}
+    | capa
+        {:
+            //El nodo capa se almacena en un nuevo arbol binario de busqueda AVL
+        :}
+    ;
+
+capa ::= NUMERO LLAVES_INICIO LLAVES_FIN
+        {:
+            //Capa sin pixeles coloreadaos
+        :}
+    | NUMERO LLAVES_INICIO bloque_capas LLAVES_FIN
+        {:
+            //Capa sin un conjunto de pixeles almacenados en una matriz dispersa
+        :}
+    ;
+
+bloque_capas ::= bloque_capas capa_unidad
+        {:
+            //El pixel se agrega a una nueva matriz dispersa        
+        :}
+    | capa_unidad
+        {:
+            //El pixel se agrega a una nueva matriz dispersa        
+        :}
+    ;
+
+capa_unidad ::= NUMERO COMA NUMERO COMA HEX PUNTO_COMA
+        {:
+            //Capa por si sola
+            //se crea un nodo pixel con los datos recibidos
+        :}
+    ;
+
+lectura_imagen ::= lectura_imagen imagen
+        {:
+            //Una imagen nueva se almacena en una lista doblemente enlazada
+        :}
+    | imagen 
+        {:
+            //Una imagen nueva se almacena en una lista doblemente enlazada
+            //Una imagen posee una lista enlaza de capas
+
+        :}
+    ;
+
+imagen ::= NUMERO LLAVES_INICIO LLAVES_FIN 
+        {:
+            ///Imagen sin capas
+        :}
+    | NUMERO LLAVES_INICIO conjunto_numeros LLAVES_FIN
+        {:
+            ///Imagen con capas
+            //El conjunto de numeros nos debera retornar una lista simplemente enlazada de capas
+            //donde la imagen apuntara al indice de esa lista
+        :}
+    ;
+lectura_usuario ::= lectura_usuario usuario
+        {:
+            //Se agrega un usuario al arbol binario de busqueda AVL
+        :}
+    | usuario
+        {:
+            //Un usuario debe agregarse a una nuevo arbol binario de busqueda AVL
+            //cada usuario posee una lista simplemente enlazada de imagenes
+        :}
+    ;
+
+usuario ::= NUMERO DOS_PUNTOS PUNTO_COMA
+        {:
+            ///Usuario sin imagenes
+        :}
+    | NUMERO DOS_PUNTOS conjunto_numeros PUNTO_COMA
+        {:
+            ///Usuario con imagenes
+            //este conjunto de numeros debera obtener un listado simplemente enlazada de las imagenes a las cuales correspondan los id
+        :}
+    ;
+conjunto_numeros ::= conjunto_numeros COMA NUMERO
+    | NUMERO
+    ;
