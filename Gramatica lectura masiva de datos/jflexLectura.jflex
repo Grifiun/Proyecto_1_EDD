@@ -1,8 +1,10 @@
 /*Primera seccion, librerias */
 package gramatica;
 import java_cup.runtime.*;
-import static com.example.gramatica.sym.*;
+import static gramatica.sym.*;
 import DAO.Token;
+import DAO.TokenError;
+import java.util.ArrayList;
 
 /*Segunda seccion, config*/
 %%
@@ -27,8 +29,7 @@ import DAO.Token;
     private Symbol retornarSimbolo(int tipo, String tipoToken, String lexema, int fila, int columna){
         //creamos un  token auxiliar
         Token tokenAux = new Token(tipoToken, lexema, fila, columna);
-        //Agregamos al listado
-        listadoOperadoresInvocados.add(tokenAux);
+        System.out.println("Fila: "+fila+" Columa: "+columna+" Token: "+tipoToken+ " Lexema: "+lexema);
         //retornamos el token aux como simbolo
         return new Symbol(tipo, tokenAux);
     }
@@ -55,19 +56,19 @@ LLAVES_FIN = "}"
 COMA = ","
 DOS_PUNTOS = ":"
 PUNTO_COMA = ";"
-HEX = "#" [a-zA-Z0-9]+
+HEX = ("#" | "0x") [a-zA-Z0-9]+
 
 %%
 
 /*Tercera accion, expresiones*/
 <YYINITIAL>{
-    {NUMERO}	    { return new Symbol(NUMERO,         new Token(yytext(), yyline + 1, yycolumn + 1)); }
-    {LLAVES_INICIO}	{ return new Symbol(LLAVES_INICIO,  new Token(yytext(), yyline + 1, yycolumn + 1)); }
-    {LLAVES_FIN}	{ return new Symbol(LLAVES_FIN,     new Token(yytext(), yyline + 1, yycolumn + 1)); }
-    {COMA}	        { return new Symbol(COMA,           new Token(yytext(), yyline + 1, yycolumn + 1)); }
-    {DOS_PUNTOS}	{ return new Symbol(DOS_PUNTOS,     new Token(yytext(), yyline + 1, yycolumn + 1)); }
-    {PUNTO_COMA}	{ return new Symbol(PUNTO_COMA,     new Token(yytext(), yyline + 1, yycolumn + 1)); }
-    {HEX}           { return new Symbol(HEX,            new Token(yytext(), yyline + 1, yycolumn + 1)); }
+    {NUMERO}	    { return retornarSimbolo(NUMERO, "NUMERO" , yytext(), yyline + 1, yycolumn + 1); }
+    {LLAVES_INICIO}	{ return retornarSimbolo(LLAVES_INICIO, "LLAVES_INICIO" , yytext(), yyline + 1, yycolumn + 1); }
+    {LLAVES_FIN}	{ return retornarSimbolo(LLAVES_FIN, "LLAVES_FIN" , yytext(), yyline + 1, yycolumn + 1); }
+    {COMA}	        { return retornarSimbolo(COMA, "COMA" , yytext(), yyline + 1, yycolumn + 1); }
+    {DOS_PUNTOS}	{ return retornarSimbolo(DOS_PUNTOS, "DOS_PUNTOS" , yytext(), yyline + 1, yycolumn + 1); }
+    {PUNTO_COMA}	{ return retornarSimbolo(PUNTO_COMA, "PUNTO_COMA" , yytext(), yyline + 1, yycolumn + 1); }
+    {HEX}           { return retornarSimbolo(HEX, "HEX" , yytext(), yyline + 1, yycolumn + 1); }
 
     {SEPARADORES}   {/*  */}
 }

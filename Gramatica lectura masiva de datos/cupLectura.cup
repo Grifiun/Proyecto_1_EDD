@@ -1,11 +1,43 @@
 package gramatica;
 import java_cup.runtime.*;
 import gramatica.sym;
-import exercise;
+import gramatica.LexerLectura;
 import DAO.Token;
+import arboles.*;
+import nodos.*;
+import matrix_dispersa.Matrix;
+import listas.*;
 
 parser code{:
+    ArbolAVLCapa arbolCapasAVL = new ArbolAVLCapa();
+    ListaCircularImagenes listadoCircularImagenes = new ListaCircularImagenes();
+    ArbolAVLUsuario arbolUsuarioAVL = new ArbolAVLUsuario();
+
     public String resultado = " ";
+
+    public ArbolAVLCapa getArbolCapasAVL(){   
+        return arbolCapasAVL;
+    }
+
+    public void setArbolCapasAVL(ArbolAVLCapa arbolCapasAVL){   
+        this.arbolCapasAVL = arbolCapasAVL;
+    }
+
+    public ListaCircularImagenes getListaCircularImagenes(){   
+        return listadoCircularImagenes;
+    }
+
+    public void setListaCircularImagenes(ListaCircularImagenes listadoCircularImagenes){   
+        this.listadoCircularImagenes = listadoCircularImagenes;
+    }
+
+    public ArbolAVLUsuario getArbolUsuarioAVL(){   
+        return arbolUsuarioAVL;
+    }
+
+    public void setArbolUsuarioAVL(ArbolAVLUsuario arbolUsuarioAVL){   
+        this.arbolUsuarioAVL = arbolUsuarioAVL;
+    }
 
     public parser(LexerLectura lexer){
         super(lexer);
@@ -22,17 +54,21 @@ terminal Token HEX;
 
 non terminal s;
 non terminal carga_masiva;
+//CAPAS
 non terminal lectura_capa;
+non terminal NodoAVLCapa capa;
+non terminal Matrix bloque_capas;
+non terminal NodoMatrix capa_unidad;
+//IMAGENES
 non terminal lectura_imagen;
+non terminal NodoImagen imagen;
+//USUARIOS
 non terminal lectura_usuario;
+non terminal NodoAVLUsuario usuario;
+//EXTRAS
 non terminal lectura_general;
-non terminal capa;
-non terminal imagen;
-non terminal usuario;
-non terminal bloque_capas;
-non terminal capa_unidad;
-non terminal conjunto_numeros;
-
+non terminal String conjunto_numeros;
+non terminal String numeroCadena;
 
 s ::= carga_masiva;
 
@@ -40,92 +76,234 @@ carga_masiva ::= carga_masiva lectura_general
     | lectura_general
     ;
 
-lectura_general ::= lectura_capa
+lectura_general ::= lectura_capa:capaAVL {: :}
     | lectura_imagen
     | lectura_usuario 
     ;
 
-lectura_capa ::= lectura_capa capa
+lectura_capa ::= lectura_capa LLAVES_FIN capa:nodoCapa LLAVES_FIN
         {:
             //El nodo capa se almacena el arbol binario de busqueda AVL
+            arbolCapasAVL.insertar(nodoCapa);
+            //capaAVL.insertar(nodoCapa);
+            System.out.println("insertamos un nodo capa: "+nodoCapa.getId());
+            //RESULT = capaAVL;
         :}
-    | capa
+    | capa:nodoCapa LLAVES_FIN
         {:
             //El nodo capa se almacena en un nuevo arbol binario de busqueda AVL
+            //ArbolAVLCapa capaAVL = new ArbolAVLCapa();
+            //capaAVL.insertar(nodoCapa);
+
+            arbolCapasAVL.insertar(nodoCapa);
+
+            System.out.println("insertamos un nodo capa: "+nodoCapa.getId());
+            //RESULT = capaAVL;
         :}
     ;
 
-capa ::= NUMERO LLAVES_INICIO LLAVES_FIN
+capa ::= /*NUMERO:id LLAVES_INICIO LLAVES_FIN
         {:
-            //Capa sin pixeles coloreadaos
-        :}
-    | NUMERO LLAVES_INICIO bloque_capas LLAVES_FIN
+            //Capa sin pixeles coloreadaos, no posee datos asi que la matriz es nula
+            NodoAVLCapa nodoCapa = new NodoAVLCapa(id, null);
+            RESULT = nodoCapa;
+        :}*/
+    //| 
+    numeroCadena:idCadena LLAVES_INICIO bloque_capas:matrizCapaAuxiliar //LLAVES_FIN
         {:
             //Capa sin un conjunto de pixeles almacenados en una matriz dispersa
+            int id = Integer.parseInt(idCadena);
+            NodoAVLCapa nodoCapa = new NodoAVLCapa(id, matrizCapaAuxiliar);
+            System.out.println("insertamos una matriz: ");
+            RESULT = nodoCapa;
         :}
     ;
 
-bloque_capas ::= bloque_capas capa_unidad
+bloque_capas ::= bloque_capas:matrizCapaAuxiliar capa_unidad:nodoMatrixAuxiliar
         {:
-            //El pixel se agrega a una nueva matriz dispersa        
+            //El pixel se agrega a la matriz dispersa obtenida
+            if(matrizCapaAuxiliar == null){
+                matrizCapaAuxiliar = new Matrix();
+            }
+            matrizCapaAuxiliar.insertar(nodoMatrixAuxiliar);  
+            System.out.println("insertamos un nodo matriz: "+nodoMatrixAuxiliar.getX()+","+nodoMatrixAuxiliar.getY());
+            RESULT = matrizCapaAuxiliar;
         :}
-    | capa_unidad
+    | capa_unidad:nodoMatrixAuxiliar
         {:
-            //El pixel se agrega a una nueva matriz dispersa        
+            //El pixel se agrega a una nueva matriz dispersa   
+            Matrix matrizCapaAuxiliar = new Matrix();
+            matrizCapaAuxiliar.insertar(nodoMatrixAuxiliar);   
+            System.out.println("insertamos un nodo matriz: "+nodoMatrixAuxiliar.getX()+","+nodoMatrixAuxiliar.getY());
+            RESULT = matrizCapaAuxiliar;
         :}
     ;
 
-capa_unidad ::= NUMERO COMA NUMERO COMA HEX PUNTO_COMA
+capa_unidad ::= conjunto_numeros:numeros COMA HEX:hexToken PUNTO_COMA
         {:
-            //Capa por si sola
+            //Capa por si sola (NodoMatrix)
             //se crea un nodo pixel con los datos recibidos
+            //System.out.println("Nujmeros: "+numeros);
+            String[] numerosCadena = numeros.split(",");
+            int fila = 0;
+            int columna = 0;
+            int colorHex = 0;
+            try{
+                fila = Integer.parseInt(numerosCadena[0]); 
+                columna = Integer.parseInt(numerosCadena[1]); 
+                colorHex = Integer.parseInt(hexToken.getLexema().replaceAll("#","").replaceAll("0x",""), 16);
+
+            }catch(Exception ex){
+                System.out.println("Error al obtener los numeros: "+ex.getMessage());
+            }
+
+            NodoMatrix nodoMatrixAuxiliar = new NodoMatrix(fila, columna, colorHex);
+
+            
+            RESULT = nodoMatrixAuxiliar;
         :}
     ;
 
-lectura_imagen ::= lectura_imagen imagen
+lectura_imagen ::= lectura_imagen LLAVES_FIN imagen:nodoImagen LLAVES_FIN
         {:
-            //Una imagen nueva se almacena en una lista doblemente enlazada
+            //Una imagen nueva se almacena en una lista doblemente enlazada circular
+            listadoCircularImagenes.insertarNodo(nodoImagen);//insertamos en el listado circular el nodo obtenido de imagenes
+        
         :}
-    | imagen 
+    | imagen:nodoImagen LLAVES_FIN
         {:
-            //Una imagen nueva se almacena en una lista doblemente enlazada
+            //Una imagen nueva se almacena en una lista doblemente enlazada circular
             //Una imagen posee una lista enlaza de capas
-
+            listadoCircularImagenes.insertarNodo(nodoImagen);//insertamos en el listado circular el nodo obtenido de imagenes
         :}
     ;
 
-imagen ::= NUMERO LLAVES_INICIO LLAVES_FIN 
+//Se retorna un nodo de tipo NodoImagen
+imagen ::= numeroCadena:idCadena LLAVES_INICIO //LLAVES_FIN 
         {:
             ///Imagen sin capas
+            int id = Integer.parseInt(idCadena);
+            NodoImagen nodoImagen = new NodoImagen(id);//no tiene un listado de capas
+
+            RESULT = nodoImagen;
         :}
-    | NUMERO LLAVES_INICIO conjunto_numeros LLAVES_FIN
+    | numeroCadena:idCadena LLAVES_INICIO conjunto_numeros:numeros //LLAVES_FIN
         {:
             ///Imagen con capas
             //El conjunto de numeros nos debera retornar una lista simplemente enlazada de capas
             //donde la imagen apuntara al indice de esa lista
+            String[] numerosCadena = numeros.split(",");//Listado de capas    
+            int id = Integer.parseInt(idCadena);
+            //creamos un nodo imagen
+            NodoImagen nodoImagen = new NodoImagen(id);
+            //creamos un listado temporal de capas
+            ListaDoblementeEnlazada listadoCapasImagen = new ListaDoblementeEnlazada();
+
+            try{
+                for(int i = 0; i < numerosCadena.length; i++){
+                    //obtenemos el id auxiliar del nodo
+                    int idCapaAux = Integer.parseInt(numerosCadena[i]); 
+                    //Buscamos el nodo
+                    //NodoAVLCapa nodoCapaAux;
+                    NodoAVLCapa nodoCapaAux = arbolCapasAVL.buscar(idCapaAux);
+                    NodoListaCapa nodoListaCapAux = new NodoListaCapa(idCapaAux, nodoCapaAux);
+                    //verificamos si es valido o no
+                    if(nodoCapaAux != null){
+                        //insertamos en el listado temporal de capas
+                        System.out.println("Se encontro la capa con id: "+idCapaAux);
+                        listadoCapasImagen.insertarNodo(nodoListaCapAux);
+                    }else{
+                        System.out.println("Id invalido de capa: "+idCapaAux);
+                    }
+                }   
+            }catch(Exception ex){
+                System.out.println("Error al obtener los numeros: "+ex.getMessage());
+            }
+            //agregamos el listado al nodo imagen
+            nodoImagen.setListadoCapas(listadoCapasImagen);
+            //retornamos
+            RESULT = nodoImagen;
         :}
     ;
-lectura_usuario ::= lectura_usuario usuario
+lectura_usuario ::= lectura_usuario PUNTO_COMA usuario:nodoUsuarioAux PUNTO_COMA
         {:
             //Se agrega un usuario al arbol binario de busqueda AVL
+            arbolUsuarioAVL.insertar(nodoUsuarioAux);
         :}
-    | usuario
+    | usuario:nodoUsuarioAux PUNTO_COMA
         {:
             //Un usuario debe agregarse a una nuevo arbol binario de busqueda AVL
             //cada usuario posee una lista simplemente enlazada de imagenes
+            arbolUsuarioAVL.insertar(nodoUsuarioAux);
         :}
     ;
-
-usuario ::= NUMERO DOS_PUNTOS PUNTO_COMA
+//Produce un nodoUsuario
+usuario ::= numeroCadena:idCadena DOS_PUNTOS //PUNTO_COMA
         {:
             ///Usuario sin imagenes
+            int id = Integer.parseInt(idCadena);
+            NodoAVLUsuario nodoUsuario = new NodoAVLUsuario(id,  new ListaDoblementeEnlazada());//se envia null porque no tiene un listado-
+
+            RESULT = nodoUsuario;
         :}
-    | NUMERO DOS_PUNTOS conjunto_numeros PUNTO_COMA
+    | numeroCadena:idCadena DOS_PUNTOS conjunto_numeros:numeros //PUNTO_COMA
         {:
             ///Usuario con imagenes
             //este conjunto de numeros debera obtener un listado simplemente enlazada de las imagenes a las cuales correspondan los id
+            String[] numerosCadena = numeros.split(",");//Listado de capas 
+            int id = Integer.parseInt(idCadena);
+
+            //creamos un listado temporal de imagenes
+            ListaDoblementeEnlazada listadoImagenesUsuario = new ListaDoblementeEnlazada();
+
+            try{
+                for(int i = 0; i < numerosCadena.length; i++){
+                    //obtenemos el id auxiliar del nodo
+                    int idAux = Integer.parseInt(numerosCadena[i]); 
+                    //Buscamos el nodo
+                    //NodoAVLCapa nodoCapaAux;
+                    NodoImagen nodoAux = listadoCircularImagenes.buscarNodo(idAux);
+                    NodoListaImagen nodoListaAux = new NodoListaImagen(idAux, nodoAux);
+                    //verificamos si es valido o no
+                    if(nodoAux != null){
+                        //insertamos en el listado temporal de capas
+                        System.out.println("Se encontro la imagen con id: "+idAux);
+                        listadoImagenesUsuario.insertarNodo(nodoListaAux);
+                    }else{
+                        System.out.println("Id invalido de capa: "+idAux);
+                    }
+                }   
+            }catch(Exception ex){
+                System.out.println("Error al obtener los numeros: "+ex.getMessage());
+            }
+            //agregamos el listado al nodo usr            
+            NodoAVLUsuario nodoUsuario = new NodoAVLUsuario(id, listadoImagenesUsuario);//se envia null porque no tiene un listado-
+
+            RESULT = nodoUsuario;
+        
         :}
     ;
-conjunto_numeros ::= conjunto_numeros COMA NUMERO
-    | NUMERO
+/*
+    Retorna una cadena de caracteres, que representan los numeros obtenidos
+    Ej: "23,23,434,2323,23"
+
+*/
+conjunto_numeros ::= conjunto_numeros:numeros COMA numeroCadena:num
+        {:
+            numeros +=  ","+num; 
+            RESULT = numeros;
+        
+        :}
+    | numeroCadena:num 
+        {: 
+            String numeros =  ""+num; 
+            RESULT = numeros;
+        :}
     ;
+
+numeroCadena ::= NUMERO:numero
+        {:
+            String numeroAux = numero.getLexema();
+            //System.out.println("num: "+numeroAux);
+            RESULT = numeroAux;
+        :};

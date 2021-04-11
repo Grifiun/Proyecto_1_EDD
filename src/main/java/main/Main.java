@@ -8,6 +8,7 @@ package main;
 import arboles.ArbolAVL;
 import graphviz.GenerarGraficaArbolAVL;
 import graphviz.GenerarGraficaMatrizDispersa;
+import java.awt.Color;
 import matrix_dispersa.Matrix;
 import nodos.Nodo;
 import nodos.NodoMatrix;
@@ -50,20 +51,36 @@ public class Main {
         }else{
             System.out.println("ID DEL NODO: "+aux.getId());
         }*/
-        
+        /*
         Matrix matrixDix = new Matrix();
-        matrixDix.insertar(1, 1, 0xFFFFFF);
+        //matrixDix.insertar(1, 1, 0xFFFFFF);
         matrixDix.insertar(1, 2, 0xe74c3c);
-        matrixDix.insertar(1, 3, 0xEA90fc);
-        matrixDix.insertar(1, 4, 0xEA80fc);
+        //matrixDix.insertar(1, 3, 0xEA90fc);
+        //matrixDix.insertar(1, 4, 0xEA80fc);
         matrixDix.insertar(2, 1, 0xe1bee7);
-        matrixDix.insertar(2, 2, 0xAfb83B);
-        matrixDix.insertar(2, 4, 0x93CeEB);
+        matrixDix.insertar(2, 2, 0xAfb83B);        
         matrixDix.insertar(2, 3, 0x299438);
+        matrixDix.insertar(2, 4, 0x93CeEB); 
         
+        //matrixDix.insertar(3, 1, 0xe1bee7);
+        matrixDix.insertar(3, 2, 0xAfb83B);        
+        //matrixDix.insertar(2, 3, 0x299438);
+        matrixDix.insertar(3, 4, 0x93CeEB); 
         GenerarGraficaMatrizDispersa graficarMatrix = new GenerarGraficaMatrizDispersa(matrixDix);
         graficarMatrix.graficar("2");
+        */
+                /*
+        String hexString = "e1bee7";
+        int hex = Integer.parseInt(hexString, 16);
+        Color colorAux = new Color(hex);
         
+
+        System.out.println("VALUE "+hex);
+        
+        System.out.println("COLOR: "+colorAux.toString());*/
+        
+        VentanaPrincipal vp = new VentanaPrincipal();
+        vp.show();
         
     }
 }

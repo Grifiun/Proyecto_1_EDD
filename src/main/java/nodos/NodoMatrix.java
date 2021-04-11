@@ -53,6 +53,7 @@ public class NodoMatrix {
         this.x = x;
         this.y = y;
         //hexColor = 0xe7423;
+        this.hex = 0;
         this.color = null;
         //Inicializamos puntieros;
         this.derecha = null;
