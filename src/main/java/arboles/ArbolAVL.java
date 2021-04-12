@@ -11,7 +11,7 @@ import nodos.*;
  * @author grifiun
  */
 public class ArbolAVL {
-    private Nodo raiz;
+    protected Nodo raiz;
     private RotacionesArbolAVL r;
     
     public ArbolAVL(){
@@ -29,7 +29,7 @@ public class ArbolAVL {
      * @param nodoAux
      * @return 
      */
-    private Nodo buscarNodo(int id, Nodo nodoAux){
+    protected Nodo buscarNodo(int id, Nodo nodoAux){
         if(raiz == null){
             return null;
         }else if(nodoAux.getId() == id){ //Encontramos el nodo por el id
@@ -60,7 +60,7 @@ public class ArbolAVL {
      * @param nodoAux
      * @return 
      */
-    private Nodo insertarNodoAVL(Nodo nuevoNodo, Nodo nodoPadre){
+    protected Nodo insertarNodoAVL(Nodo nuevoNodo, Nodo nodoPadre){
         //Nodo nodoNuevoPadre = nodoPadre;
         if(nuevoNodo.getId() < nodoPadre.getId()){//insertamos por el nodo izquierdo
             //si no tiene hijos el nodo padre por la izquierda, lo agregamos directamente
@@ -275,7 +275,7 @@ public class ArbolAVL {
             System.out.println(nodoAux.getId()+", ");//imprimimos los id
         }
     }
-
+    
     public Nodo getRaiz() {
         return raiz;
     }

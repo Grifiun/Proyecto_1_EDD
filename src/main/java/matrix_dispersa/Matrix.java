@@ -5,6 +5,10 @@
  */
 package matrix_dispersa;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import nodos.NodoMatrix;
 
 /**
@@ -15,6 +19,8 @@ public class Matrix {
     private int cantidadNodos;
     private int numeroUltimaFila;
     private int numeroUltimaColumna;
+    private int cantidadColumnasMax;
+    private int cantidadFilasMax;
     private NodoMatrix raiz;
     
     private FuncionesIndices findices;
@@ -50,7 +56,7 @@ public class Matrix {
      * Metodo para insertar nodos dentro de la matrix dix
      * @param nuevoNodo 
      */
-    private void insertar(NodoMatrix nuevoNodo){
+    public void insertar(NodoMatrix nuevoNodo){
         NodoMatrix nuevoAux = nuevoNodo;
         //obtenemos la posicion
         int fila = nuevoNodo.getY();
@@ -200,7 +206,8 @@ public class Matrix {
         if(numeroUltimaFila > 0){
             //ecuacion = cantidad max - primera fila
             // long = 10 - 6 = 4
-            return numeroUltimaFila - raiz.getAbajo().getY();
+            System.out.println("Filas: "+numeroUltimaFila);
+            return numeroUltimaFila;
         }else
             return 0;
     }
@@ -214,7 +221,8 @@ public class Matrix {
         if(numeroUltimaColumna > 0){
             //ecuacion = cantidad max - primera columna
             // long = 10 - 6 = 4
-            return numeroUltimaColumna - raiz.getDerecha().getX();
+            System.out.println("Columnas: "+numeroUltimaColumna);
+            return numeroUltimaColumna;
         }else
             return 0;
     }
@@ -222,6 +230,58 @@ public class Matrix {
     public NodoMatrix getRaiz() {
         return raiz;
     }
+    
+    public void graficarMatrixDix(JPanel panel, int cantidadColumnasMax, int cantidadFilasMax){
+        if(cantidadColumnasMax == -1 && cantidadFilasMax == -1){//valores por default para cada capa
+            this.cantidadColumnasMax = obtenerLongitudRealColumnas();
+            this.cantidadFilasMax = obtenerLongitudRealFilas();
+        }else{
+            this.cantidadColumnasMax = cantidadColumnasMax;
+            this.cantidadFilasMax = cantidadFilasMax;
+        }
+        
+        
+        graficarFilas(panel, raiz);
+    }
+    
+    public void graficarFilas(JPanel panel, NodoMatrix nodo){
+        graficarColumnaPorFila(panel, nodo);
+        if(nodo.getAbajo() != null){//hay mas filas
+            graficarFilas(panel, nodo.getAbajo());//nos movemos a la otra fila
+        }
+    }
+    
+    public void graficarColumnaPorFila(JPanel panel, NodoMatrix nodo){
+        //int widthPixel = 840 / (numeroUltimaColumna + 1);//sumamos 1 por los indicadores de indice
+        //int heightPixel = 840 / (numeroUltimaFila + 1);
+        int max = Math.max(cantidadColumnasMax, cantidadFilasMax);
+        int widthPixel = 840 / (max + 1);//sumamos 1 por los indicadores de indice
+        int heightPixel = 840 / (max + 1);
+        
+        if(nodo != null){   
+            JPanel panelPixel = new JPanel();
+            panelPixel.setLayout(new BorderLayout());
+            Color colorPixel = nodo.getColor();
+            
+            if(colorPixel == null || nodo.getHex() == 0){//si no tiene color es un indice
+                //System.out.println("Es un indice");
+                colorPixel = new Color(0xffffff);//color blanco, para los indices
+                JLabel indice = new JLabel("Indice: "+Math.max(nodo.getX(), nodo.getY()));
+                panelPixel.add(indice, BorderLayout.CENTER);
+            }
+            
+            panelPixel.setBackground(colorPixel);
+            //System.out.println("Pixel: x: "+widthPixel * nodo.getX()+" y: "+widthPixel * nodo.getY());
+            
+            panelPixel.setBounds(widthPixel * nodo.getX(), widthPixel * nodo.getY(), widthPixel, heightPixel);
+            panel.add(panelPixel);
+        }
+        
+        if(nodo.getDerecha() != null){//recorremos a la derecha
+            graficarColumnaPorFila(panel, nodo.getDerecha());
+        }
+    }
+    
     
     
 }

@@ -1,0 +1,61 @@
+digraph grafica{
+	label="Listado de Imagenes"	rankdir=TB;
+	concentrate=true;
+	node [shape = box, style=filled, fillcolor = honeydew2];
+	edge [arrowsize=.5]
+		//Nodo
+		nodo1 [ label = "1", group=1];
+		//Capas
+		nodoCapa1Grupo1 [ label = " Capa 1", group=1];
+		nodoCapa2Grupo1 [ label = " Capa 2", group=1];
+		nodoCapa3Grupo1 [ label = " Capa 3", group=1];
+		nodoCapa4Grupo1 [ label = " Capa 4", group=1];
+		nodoCapa5Grupo1 [ label = " Capa 5", group=1];
+		nodoCapa6Grupo1 [ label = " Capa 6", group=1];
+		nodo1 -> nodoCapa1Grupo1 -> nodoCapa2Grupo1 -> nodoCapa3Grupo1 -> nodoCapa4Grupo1 -> nodoCapa5Grupo1 -> nodoCapa6Grupo1;
+		//Nodo
+		nodo2 [ label = "2", group=2];
+		//Capas
+		nodoCapa1Grupo2 [ label = " Capa 1", group=2];
+		nodoCapa4Grupo2 [ label = " Capa 4", group=2];
+		nodoCapa5Grupo2 [ label = " Capa 5", group=2];
+		nodoCapa6Grupo2 [ label = " Capa 6", group=2];
+		nodo2 -> nodoCapa1Grupo2 -> nodoCapa4Grupo2 -> nodoCapa5Grupo2 -> nodoCapa6Grupo2;
+		//Nodo
+		nodo3 [ label = "3", group=3];
+		//Capas
+		nodoCapa4Grupo3 [ label = " Capa 4", group=3];
+		nodoCapa5Grupo3 [ label = " Capa 5", group=3];
+		nodoCapa6Grupo3 [ label = " Capa 6", group=3];
+		nodo3 -> nodoCapa4Grupo3 -> nodoCapa5Grupo3 -> nodoCapa6Grupo3;
+		//Nodo
+		nodo4 [ label = "4", group=4];
+		//Capas
+		nodoCapa1Grupo4 [ label = " Capa 1", group=4];
+		nodoCapa2Grupo4 [ label = " Capa 2", group=4];
+		nodoCapa3Grupo4 [ label = " Capa 3", group=4];
+		nodo4 -> nodoCapa1Grupo4 -> nodoCapa2Grupo4 -> nodoCapa3Grupo4;
+		//Nodo
+		nodo5 [ label = "5", group=5];
+		//Capas
+		nodoCapa3Grupo5 [ label = " Capa 3", group=5];
+		nodoCapa4Grupo5 [ label = " Capa 4", group=5];
+		nodo5 -> nodoCapa3Grupo5 -> nodoCapa4Grupo5;
+		//Nodo
+		nodo6 [ label = "6", group=6];
+		//Capas
+		nodoCapa7Grupo6 [ label = " Capa 7", group=6];
+		nodo6 -> nodoCapa7Grupo6;
+		//Nodo
+		nodo20 [ label = "20", group=20];
+		//Capas
+		nodoCapa8Grupo20 [ label = " Capa 8", group=20];
+		nodo20 -> nodoCapa8Grupo20;
+		//Nodo
+		nodo10 [ label = "10", group=10];
+		//Capas
+		nodoCapa9Grupo10 [ label = " Capa 9", group=10];
+		nodo10 -> nodoCapa9Grupo10;
+		edge [dir = both, arrowsize=.5]
+		rank = same {nodo1 -> nodo2 -> nodo3 -> nodo4 -> nodo5 -> nodo6 -> nodo20 -> nodo10-> nodo1}
+	}

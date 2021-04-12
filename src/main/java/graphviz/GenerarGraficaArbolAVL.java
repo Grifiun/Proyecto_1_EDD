@@ -32,7 +32,7 @@ public class GenerarGraficaArbolAVL {
         {
             fichero = new FileWriter("aux_grafico.dot");
             escritor = new PrintWriter(fichero);
-            escritor.print(getCodigoGraphviz());
+            escritor.print(getCodigoGraphviz(tipoGrafica));
         } 
         catch (Exception e){
             System.err.println("Error al escribir el archivo aux_grafico.dot");
@@ -51,7 +51,7 @@ public class GenerarGraficaArbolAVL {
           //Esperamos medio segundo para dar tiempo a que la imagen se genere.
           //Para que no sucedan errores en caso de que se decidan graficar varios
           //árboles sucesivamente.
-          Thread.sleep(1000);
+          Thread.sleep(100);
         } catch (Exception ex) {
             System.err.println("Error al generar la imagen para el archivo aux_grafico.dot");
         }            
@@ -62,8 +62,9 @@ public class GenerarGraficaArbolAVL {
      * del árbol AVL
      * @return 
      */
-    private String getCodigoGraphviz() {
+    public String getCodigoGraphviz(String titulo) {
         return "digraph grafica{\n" +
+               "\tlabel=\"Arbol de "+titulo+"\""+
                "\trankdir=TB;\n" +
                "\tnode [shape = record, style=filled, fillcolor = honeydew2];\n"+
                 getCodigoInterno(raiz)+
@@ -77,7 +78,7 @@ public class GenerarGraficaArbolAVL {
      * sencillo y reduce el código considerablemente. 
      * @return 
      */
-    private String getCodigoInterno(Nodo nodoAux) {
+    protected String getCodigoInterno(Nodo nodoAux) {
         String codigoInterno;
         if(nodoAux.getHijoIzquierdo() == null && nodoAux.getHijoDerecho() == null){//si no se tienen hijos
             codigoInterno = "\t\tnodo" + nodoAux.getId() + " [ label = \"" + nodoAux.getId() + "\"];\n";
