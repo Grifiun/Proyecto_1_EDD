@@ -5,6 +5,8 @@ package gramatica;
 import java_cup.runtime.*;
 import static gramatica.sym.*;
 import DAO.Token;
+import DAO.TokenError;
+import java.util.ArrayList;
 
 /*Segunda seccion, config*/
 
@@ -253,8 +255,7 @@ public class LexerLectura implements java_cup.runtime.Scanner {
     private Symbol retornarSimbolo(int tipo, String tipoToken, String lexema, int fila, int columna){
         //creamos un  token auxiliar
         Token tokenAux = new Token(tipoToken, lexema, fila, columna);
-        //Agregamos al listado
-        listadoOperadoresInvocados.add(tokenAux);
+        System.out.println("Fila: "+fila+" Columa: "+columna+" Token: "+tipoToken+ " Lexema: "+lexema);
         //retornamos el token aux como simbolo
         return new Symbol(tipo, tokenAux);
     }

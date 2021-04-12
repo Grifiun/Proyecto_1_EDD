@@ -8,6 +8,7 @@ package listas;
 import javax.swing.JComboBox;
 import nodos.NodoImagen;
 import nodos.NodoListaEnlazada;
+import nodos.NodoListaImagen;
 
 /**
  *
@@ -24,8 +25,12 @@ public class ListaDoblementeEnlazada {
      * Insertamos un nuevoNodo
      * @param nuevoNodo 
      */
-    public void insertarNodo(NodoListaEnlazada nuevoNodo){        
-        insertarNodo(raiz, nuevoNodo);//insertamos
+    public void insertarNodo(NodoListaEnlazada nuevoNodo){  
+        try{
+            insertarNodo(raiz, nuevoNodo);//insertamos
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
     }
     
     /** 
@@ -33,12 +38,11 @@ public class ListaDoblementeEnlazada {
      * @param nodoAux
      * @param nuevoNodo 
      */
-    private void insertarNodo(NodoListaEnlazada nodoAux, NodoListaEnlazada nuevoNodo){
+    private void insertarNodo(NodoListaEnlazada nodoAux, NodoListaEnlazada nuevoNodo){       
         if(this.raiz == null){//si no existe una el nodoAuxiliar, en este caso seria el primer ingreso, se crea una nueva raiz
             this.raiz = nuevoNodo;
-            return;
         }else{//si hay nodos, recorremos hasta el ultimo
-            //insertamos a la derecha
+            //insertamos a la derecha            
             if(nodoAux.getSiguiente() != null){
                 //insertamos el siguiente
                 //insertarNodo(nodoAux.getSiguiente(), nuevoNodo);
@@ -46,13 +50,12 @@ public class ListaDoblementeEnlazada {
             }else{
                 //llegamos al final
                 //Agregamos puntero de ultimo nodo de la fila, hacia el nuevo nodo
+                System.out.println("Agregamos el nodo: "+nodoAux.getId());
                 nodoAux.setSiguiente(nuevoNodo);
                 nuevoNodo.setAnterior(nodoAux);
-                return;
             }
         }
     }
-    
     
     
     /**
@@ -137,17 +140,19 @@ public class ListaDoblementeEnlazada {
      * @param nuevoNodo 
      */
     private void agregarImagenesComboBox(NodoListaEnlazada nodoAux, JComboBox comboBox){
+        NodoListaImagen nodoAuxImagen = (NodoListaImagen) nodoAux;
+        
         if(nodoAux == null){//si no existe una el nodoAuxiliar, en este caso seria el primer nodo, e indica que la lista esta vacia
             System.out.println("No hay nodos en la lista");
         }else{//si hay nodos, recorremos hasta que ya no haya ninguno    
-                //agregamos al cobox
-                comboBox.addItem(nodoAux.getId()+"");
-                if(nodoAux.getSiguiente() != null && nodoAux.getSiguiente() != this.raiz){//verificamos que no sea la raiz, sino nunca termina el ciclo
-                //recorremos el siguiente nodo
-                    agregarImagenesComboBox((NodoImagen) nodoAux.getSiguiente(), comboBox);//parseamos
-                    //return buscarNodo(nodoAux.getSiguiente(), id);
-                }
+            //agregamos al cobox
+            comboBox.addItem(nodoAuxImagen.getNodoImagen().getId()+"");
+            if(nodoAuxImagen.getSiguiente() != null && nodoAuxImagen.getSiguiente() != this.raiz){//verificamos que no sea la raiz, sino nunca termina el ciclo
+            //recorremos el siguiente nodo
+                agregarImagenesComboBox((NodoImagen) nodoAuxImagen.getSiguiente(), comboBox);//parseamos
+                //return buscarNodo(nodoAux.getSiguiente(), id);
             }
+        }
         
     }
     

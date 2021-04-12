@@ -42,8 +42,8 @@ public class parser extends java_cup.runtime.lr_parser {
     "\004\000\002\003\003\000\002\014\003\000\002\014\003" +
     "\000\002\014\003\000\002\004\006\000\002\004\004\000" +
     "\002\005\005\000\002\006\004\000\002\006\003\000\002" +
-    "\007\006\000\002\010\006\000\002\010\004\000\002\011" +
-    "\004\000\002\011\005\000\002\012\006\000\002\012\004" +
+    "\007\006\000\002\010\006\000\002\010\003\000\002\011" +
+    "\004\000\002\011\005\000\002\012\006\000\002\012\003" +
     "\000\002\013\004\000\002\013\005\000\002\015\005\000" +
     "\002\015\003\000\002\016\003" });
 
@@ -53,34 +53,35 @@ public class parser extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\056\000\004\004\012\001\002\000\004\006\060\001" +
-    "\002\000\010\002\ufffc\004\ufffc\006\052\001\002\000\006" +
+    "\000\055\000\004\004\012\001\002\000\004\006\057\001" +
+    "\002\000\010\002\ufffc\004\ufffc\006\051\001\002\000\006" +
     "\002\ufffe\004\ufffe\001\002\000\010\002\ufffd\004\ufffd\006" +
-    "\045\001\002\000\006\002\001\004\012\001\002\000\006" +
-    "\005\033\010\025\001\002\000\014\005\uffea\006\uffea\007" +
-    "\uffea\010\uffea\011\uffea\001\002\000\004\011\032\001\002" +
-    "\000\010\002\ufffb\004\ufffb\011\021\001\002\000\004\006" +
-    "\020\001\002\000\004\002\017\001\002\000\004\002\000" +
-    "\001\002\000\010\002\ufff3\004\ufff3\006\ufff3\001\002\000" +
-    "\004\004\012\001\002\000\004\010\025\001\002\000\004" +
-    "\011\024\001\002\000\010\002\ufff0\004\ufff0\011\ufff0\001" +
-    "\002\000\006\004\012\011\uffee\001\002\000\010\006\uffeb" +
-    "\007\uffeb\011\uffeb\001\002\000\006\007\030\011\uffed\001" +
-    "\002\000\004\004\012\001\002\000\010\006\uffec\007\uffec" +
-    "\011\uffec\001\002\000\010\002\uffef\004\uffef\011\uffef\001" +
-    "\002\000\006\004\012\006\ufff2\001\002\000\006\004\012" +
-    "\006\ufff8\001\002\000\006\006\ufff1\007\037\001\002\000" +
-    "\006\004\ufff6\006\ufff6\001\002\000\006\004\012\012\040" +
-    "\001\002\000\004\011\041\001\002\000\006\004\ufff5\006" +
-    "\ufff5\001\002\000\004\007\037\001\002\000\006\004\ufff7" +
-    "\006\ufff7\001\002\000\006\002\uffff\004\uffff\001\002\000" +
-    "\004\004\012\001\002\000\004\005\051\001\002\000\004" +
-    "\006\050\001\002\000\010\002\ufffa\004\ufffa\006\ufffa\001" +
-    "\002\000\004\004\012\001\002\000\004\004\012\001\002" +
-    "\000\004\005\056\001\002\000\004\006\055\001\002\000" +
-    "\010\002\ufff4\004\ufff4\006\ufff4\001\002\000\006\004\012" +
-    "\006\ufff2\001\002\000\006\006\ufff1\007\030\001\002\000" +
-    "\010\002\ufff9\004\ufff9\006\ufff9\001\002" });
+    "\044\001\002\000\006\002\001\004\012\001\002\000\004" +
+    "\005\032\001\002\000\006\005\uffea\010\024\001\002\000" +
+    "\010\002\uffef\004\uffef\011\uffef\001\002\000\010\002\ufffb" +
+    "\004\ufffb\011\020\001\002\000\010\002\ufff3\004\ufff3\006" +
+    "\ufff3\001\002\000\004\002\017\001\002\000\004\002\000" +
+    "\001\002\000\004\004\021\001\002\000\004\010\024\001" +
+    "\002\000\004\011\023\001\002\000\010\002\ufff0\004\ufff0" +
+    "\011\ufff0\001\002\000\010\002\uffee\004\025\011\uffee\001" +
+    "\002\000\016\002\uffea\004\uffea\005\uffea\006\uffea\007\uffea" +
+    "\011\uffea\001\002\000\014\002\uffeb\004\uffeb\006\uffeb\007" +
+    "\uffeb\011\uffeb\001\002\000\012\002\uffed\004\uffed\007\030" +
+    "\011\uffed\001\002\000\004\004\025\001\002\000\014\002" +
+    "\uffec\004\uffec\006\uffec\007\uffec\011\uffec\001\002\000\010" +
+    "\002\ufff2\004\025\006\ufff2\001\002\000\006\004\025\006" +
+    "\ufff8\001\002\000\012\002\ufff1\004\ufff1\006\ufff1\007\036" +
+    "\001\002\000\006\004\ufff6\006\ufff6\001\002\000\006\004" +
+    "\025\012\037\001\002\000\004\011\040\001\002\000\006" +
+    "\004\ufff5\006\ufff5\001\002\000\004\007\036\001\002\000" +
+    "\006\004\ufff7\006\ufff7\001\002\000\006\002\uffff\004\uffff" +
+    "\001\002\000\004\004\025\001\002\000\004\005\050\001" +
+    "\002\000\004\006\047\001\002\000\010\002\ufffa\004\ufffa" +
+    "\006\ufffa\001\002\000\004\004\025\001\002\000\004\004" +
+    "\025\001\002\000\004\005\055\001\002\000\004\006\054" +
+    "\001\002\000\010\002\ufff4\004\ufff4\006\ufff4\001\002\000" +
+    "\006\004\025\006\ufff2\001\002\000\006\006\ufff1\007\030" +
+    "\001\002\000\010\002\ufff9\004\ufff9\006\ufff9\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -88,27 +89,27 @@ public class parser extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\056\000\026\002\015\003\007\004\006\005\003\010" +
+    "\000\055\000\026\002\015\003\007\004\006\005\003\010" +
     "\004\011\014\012\013\013\012\014\005\016\010\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\022\004\006\005\003\010\004\011\014" +
-    "\012\013\013\012\014\043\016\010\001\001\000\002\001" +
+    "\012\013\013\012\014\042\016\010\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\006\013\022\016\021\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\006\015" +
-    "\026\016\025\001\001\000\002\001\001\000\002\001\001" +
-    "\000\004\016\030\001\001\000\002\001\001\000\002\001" +
-    "\001\000\012\006\033\007\035\015\034\016\025\001\001" +
-    "\000\010\007\042\015\041\016\025\001\001\000\002\001" +
-    "\001\000\002\001\001\000\004\016\030\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\006\005\046\016\045\001\001" +
+    "\004\013\021\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\006\015\026\016\025\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\004" +
+    "\016\030\001\001\000\002\001\001\000\012\006\032\007" +
+    "\034\015\033\016\025\001\001\000\010\007\041\015\040" +
+    "\016\025\001\001\000\002\001\001\000\002\001\001\000" +
+    "\004\016\030\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\012\006\033\007\035\015\041\016\025\001\001\000\006" +
-    "\011\053\016\052\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\006\015\056\016\025\001\001" +
-    "\000\002\001\001\000\002\001\001" });
+    "\006\005\045\016\044\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\012\006\032\007\034\015" +
+    "\040\016\025\001\001\000\006\011\052\016\051\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\006\015\055\016\025\001\001\000\002\001\001\000\002" +
+    "\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -431,18 +432,18 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 14: // lectura_imagen ::= imagen LLAVES_FIN 
+          case 14: // lectura_imagen ::= imagen 
             {
               Object RESULT =null;
-		int nodoImagenleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
-		int nodoImagenright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		NodoImagen nodoImagen = (NodoImagen)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		int nodoImagenleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int nodoImagenright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		NodoImagen nodoImagen = (NodoImagen)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
             //Una imagen nueva se almacena en una lista doblemente enlazada circular
             //Una imagen posee una lista enlaza de capas
             listadoCircularImagenes.insertarNodo(nodoImagen);//insertamos en el listado circular el nodo obtenido de imagenes
         
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("lectura_imagen",6, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("lectura_imagen",6, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
 
@@ -504,6 +505,8 @@ class CUP$parser$actions {
                 }   
             }catch(Exception ex){
                 System.out.println("Error al obtener los numeros: "+ex.getMessage());
+                System.out.println("Error al obtener los numeros: "+ex);
+
             }
             //agregamos el listado al nodo imagen
             nodoImagen.setListadoCapas(listadoCapasImagen);
@@ -530,32 +533,32 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 18: // lectura_usuario ::= usuario PUNTO_COMA 
+          case 18: // lectura_usuario ::= usuario 
             {
               Object RESULT =null;
-		int nodoUsuarioAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
-		int nodoUsuarioAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		NodoAVLUsuario nodoUsuarioAux = (NodoAVLUsuario)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		int nodoUsuarioAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int nodoUsuarioAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		NodoAVLUsuario nodoUsuarioAux = (NodoAVLUsuario)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
             //Un usuario debe agregarse a una nuevo arbol binario de busqueda AVL
             //cada usuario posee una lista simplemente enlazada de imagenes
             arbolUsuarioAVL.insertar(nodoUsuarioAux);
         
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("lectura_usuario",8, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("lectura_usuario",8, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 19: // usuario ::= numeroCadena DOS_PUNTOS 
+          case 19: // usuario ::= NUMERO DOS_PUNTOS 
             {
               NodoAVLUsuario RESULT =null;
 		int idCadenaleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int idCadenaright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		String idCadena = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		Token idCadena = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		
             ///Usuario sin imagenes
-            int id = Integer.parseInt(idCadena);
-            NodoAVLUsuario nodoUsuario = new NodoAVLUsuario(id,  new ListaDoblementeEnlazada());//se envia null porque no tiene un listado-
+            int id = Integer.parseInt(idCadena.getLexema());
+            NodoAVLUsuario nodoUsuario = new NodoAVLUsuario(id, null);//se envia null porque no tiene un listado-
 
             RESULT = nodoUsuario;
         
@@ -564,12 +567,12 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 20: // usuario ::= numeroCadena DOS_PUNTOS conjunto_numeros 
+          case 20: // usuario ::= NUMERO DOS_PUNTOS conjunto_numeros 
             {
               NodoAVLUsuario RESULT =null;
 		int idCadenaleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int idCadenaright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		String idCadena = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		Token idCadena = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int numerosleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int numerosright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		String numeros = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -577,11 +580,11 @@ class CUP$parser$actions {
             ///Usuario con imagenes
             //este conjunto de numeros debera obtener un listado simplemente enlazada de las imagenes a las cuales correspondan los id
             String[] numerosCadena = numeros.split(",");//Listado de capas 
-            int id = Integer.parseInt(idCadena);
-
+            int id = Integer.parseInt(idCadena.getLexema());
+            System.out.println("Numeros:  "+numeros);
             //creamos un listado temporal de imagenes
             ListaDoblementeEnlazada listadoImagenesUsuario = new ListaDoblementeEnlazada();
-
+            //ListaDoblementeEnlazadaImagenes listadoImagenesUsuario = new ListaDoblementeEnlazadaImagenes();
             try{
                 for(int i = 0; i < numerosCadena.length; i++){
                     //obtenemos el id auxiliar del nodo
@@ -594,7 +597,13 @@ class CUP$parser$actions {
                     if(nodoAux != null){
                         //insertamos en el listado temporal de capas
                         System.out.println("Se encontro la imagen con id: "+idAux);
-                        listadoImagenesUsuario.insertarNodo(nodoListaAux);
+                        if(i == 0){
+                            listadoImagenesUsuario.setRaiz((NodoListaEnlazada)nodoListaAux);
+                        }else{
+                            listadoImagenesUsuario.insertarNodo(nodoListaAux);
+
+                        }
+
                     }else{
                         System.out.println("Id invalido de capa: "+idAux);
                     }

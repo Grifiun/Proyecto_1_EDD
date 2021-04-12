@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import listas.FuncionesGenerarImagenesListaCapasImagen;
 import listas.ListaCircularImagenes;
+import listas.ListaDoblementeEnlazada;
 import nodos.Nodo;
 import nodos.NodoAVLCapa;
 import nodos.NodoAVLUsuario;
@@ -136,6 +137,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
 
         jLabel5.setText("Listado Capas");
+
+        boxUsuariosImagenes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boxUsuariosImagenesActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Listado Usuarios");
 
@@ -309,11 +316,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                         graficador.graficar("Usuarios");  
                         
                         //Agregamos al box
-                        boxUsuarios.removeAll();
+                        boxUsuarios.removeAllItems();
                         arbolUsuarioAVL.agregarUsuariosComboBox(boxUsuarios);
                         //Agregamos el segundo box
-                        //boxUsuariosImagenes.removeAll();
-                        //((NodoAVLUsuario)arbolUsuarioAVL.getRaiz()).getListadoImagenesUsuario().agregarImagenesComboBox(boxUsuariosImagenes);
+                        agregarImagenesUsuario();
                         
                     }                          
                 }catch(Exception ex){
@@ -399,6 +405,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 }
                 break;
             case 5:
+                if(arbolUsuarioAVL != null && boxUsuariosImagenes.getItemCount() > 0){
+                    int imagenId = Integer.parseInt(boxUsuariosImagenes.getSelectedItem().toString());
+                    NodoImagen imagenAux = listadoImagenes.buscarNodo(imagenId);
+                    if(imagenAux != null){
+                        FuncionesGenerarImagenesListaCapasImagen generarImagenes = new FuncionesGenerarImagenesListaCapasImagen();
+                        generarImagenes.graficar(lienzo, imagenAux.getListadoCapas().getRaiz());
+                        
+                    }else{
+                        System.out.println("Imagen no hallada");
+                    }
+                    
+                }else{
+                    JOptionPane.showMessageDialog(null, "Cargue primero las imagenes del usuario y los usuarios");
+                }
                 break;
             
         }
@@ -408,8 +428,32 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void boxUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxUsuariosActionPerformed
         // TODO add your handling code here:
-        System.out.println("Seleccion: "+boxUsuariosImagenes.getSelectedItem().toString());
+        agregarImagenesUsuario();
+        
     }//GEN-LAST:event_boxUsuariosActionPerformed
+
+    private void agregarImagenesUsuario(){
+        System.out.println("Seleccion: "+boxUsuarios.getSelectedItem());
+        boxUsuariosImagenes.removeAllItems();
+        try{
+            NodoAVLUsuario nodoUsuarioAux = arbolUsuarioAVL.buscar(Integer.parseInt(boxUsuarios.getSelectedItem().toString()));     
+            if(nodoUsuarioAux != null){
+                System.out.println("Se encontro el nodo");
+                if(nodoUsuarioAux.getListadoImagenesUsuario() != null){
+                    nodoUsuarioAux.getListadoImagenesUsuario().agregarImagenesComboBox(boxUsuariosImagenes);
+                }
+            }else{  
+                System.out.println("no se encontro el nodo");
+            }
+            
+        }catch(Exception ex){
+            System.out.println("No tiene imagenes");
+        }
+    }
+    
+    private void boxUsuariosImagenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxUsuariosImagenesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_boxUsuariosImagenesActionPerformed
 
     public String leerArchivo(String direccion){
         String aux = "";
