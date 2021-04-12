@@ -14,7 +14,7 @@ import listas.ListaDoblementeEnlazada;
 public class NodoAVLUsuario extends NodoListaEnlazada{
    
     //Listado imagenes
-    ListaDoblementeEnlazada listadoImagenesUsuario;
+    public ListaDoblementeEnlazada listadoImagenesUsuario;
 
     /**
      * Constructor

@@ -27,6 +27,7 @@ import nodos.Nodo;
 import nodos.NodoAVLCapa;
 import nodos.NodoAVLUsuario;
 import nodos.NodoImagen;
+import nodos.NodoListaImagen;
 
 /**
  *
@@ -73,12 +74,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         boxGeneracionImagen = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
-        btnColor = new javax.swing.JButton();
         btnGenerarImagen = new javax.swing.JButton();
         boxCapas = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         boxUsuariosImagenes = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
+        btnColor = new javax.swing.JButton();
+        btnEfectuarCRUD = new javax.swing.JButton();
+        boxCRUD = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
+        txtIdCRUD = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 204, 255));
@@ -116,18 +121,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jLabel2.setText("Imagenes Usuario");
 
-        jLabel3.setText("Tipo generacion imagen");
+        jLabel3.setText("ID CRUD");
 
         boxGeneracionImagen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Capa InOrden", "Capa preOrden", "Capa postOrden", "Por Capa (lista)", "Por imagen (lista)", "Por imagen de usuario" }));
 
         jLabel4.setText("Carga masiva de archivos");
-
-        btnColor.setText("color");
-        btnColor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnColorActionPerformed(evt);
-            }
-        });
 
         btnGenerarImagen.setText("GENERAR IMAGEN");
         btnGenerarImagen.addActionListener(new java.awt.event.ActionListener() {
@@ -146,13 +144,33 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jLabel6.setText("Listado Usuarios");
 
+        btnColor.setText("GENERAR GRAPHVIZ");
+        btnColor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnColorActionPerformed(evt);
+            }
+        });
+
+        btnEfectuarCRUD.setText("Efectuar accion CRUD");
+        btnEfectuarCRUD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEfectuarCRUDActionPerformed(evt);
+            }
+        });
+
+        boxCRUD.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ingresar nuevo usuario", "Eliminar usuario seleccionado", "Agregar imagen", "Eliminar imagen", "Agregar imagen a usuario (L)", "Eliminar imagen a usuario (L)" }));
+
+        jLabel7.setText("Tipo generacion imagen");
+
+        txtIdCRUD.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+
         javax.swing.GroupLayout panelOpcionesLayout = new javax.swing.GroupLayout(panelOpciones);
         panelOpciones.setLayout(panelOpcionesLayout);
         panelOpcionesLayout.setHorizontalGroup(
             panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcionesLayout.createSequentialGroup()
-                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelOpcionesLayout.createSequentialGroup()
+            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelOpcionesLayout.createSequentialGroup()
                         .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelOpcionesLayout.createSequentialGroup()
                                 .addGap(6, 6, 6)
@@ -163,28 +181,30 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                                         .addGap(6, 6, 6)
                                         .addComponent(btnCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnGenerarImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtNombreArchivo)))
+                                    .addComponent(btnGenerarImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(panelOpcionesLayout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jLabel2)))
-                        .addGap(0, 2, Short.MAX_VALUE))
+                        .addGap(0, 16, Short.MAX_VALUE))
                     .addGroup(panelOpcionesLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(boxUsuarios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(boxImagenes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(boxUsuariosImagenes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(boxCapas, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelOpcionesLayout.createSequentialGroup()
+                        .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnColor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtNombreArchivo, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEfectuarCRUD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(boxCRUD, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(boxUsuarios, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(boxImagenes, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(boxUsuariosImagenes, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(boxCapas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(panelOpcionesLayout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(panelOpcionesLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btnColor, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(boxGeneracionImagen, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(boxGeneracionImagen, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtIdCRUD, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         panelOpcionesLayout.setVerticalGroup(
@@ -198,7 +218,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnBuscarArchivo)
                     .addComponent(btnCargar))
-                .addGap(99, 99, 99)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(boxCapas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -206,7 +226,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(6, 6, 6)
                 .addComponent(boxImagenes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(boxUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -214,15 +234,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(boxUsuariosImagenes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(boxGeneracionImagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(btnGenerarImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(boxGeneracionImagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnGenerarImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(75, 75, 75)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtIdCRUD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(boxCRUD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEfectuarCRUD)
+                .addGap(63, 63, 63)
                 .addComponent(btnColor, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -231,16 +259,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(lienzo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lienzo, javax.swing.GroupLayout.PREFERRED_SIZE, 854, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(68, 68, 68)
-                .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lienzo, javax.swing.GroupLayout.PREFERRED_SIZE, 854, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -283,23 +314,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     
                     if(extensionArchivo.contains(".cap")){//es un archivo de capas.cap
                         arbolCapas = pars.getArbolCapasAVL();
-                        //Setteamos el valor del arbol AVL                     
-                        //generamos las graficas de matrices
-                        arbolCapas.generarGraficasMatrices(arbolCapas.getRaiz());   
-                        
-                        //Graficamos el arbol AVL
-                        GenerarGraficaArbolAVL graficador = new GenerarGraficaArbolAVL(arbolCapas.getRaiz());
-                        ////le agregamos el id de la capa
-                        graficador.graficar("Capas"); 
-                        
+                        //Setteamos el valor del arbol AVL     
                         
                         boxCapas.removeAllItems();
                         arbolCapas.agregarCapasComboBox(boxCapas);
                     }else if(extensionArchivo.contains(".im")){//imagenes
-                        this.listadoImagenes = pars.getListaCircularImagenes();
-                        GenerarGraficaListadoCircularImagenes graficarImagenes = new GenerarGraficaListadoCircularImagenes(listadoImagenes.getRaiz());
-                        //GenerarGraficaListadoCircularImagenes graficarImagenes = new GenerarGraficaListadoCircularImagenes(null);
-                        graficarImagenes.graficar("Imagenes");
+                        this.listadoImagenes = pars.getListaCircularImagenes();                       
                         
                         //REcargamos el cbox de imagenes
                         boxImagenes.removeAllItems();
@@ -307,13 +327,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                         
                     }else{//usuarios
                         this.arbolUsuarioAVL = pars.getArbolUsuarioAVL();
-                        GenerarGraficaArbolAVLUsuario graficarImagenes = new GenerarGraficaArbolAVLUsuario(arbolUsuarioAVL.getRaiz());
-                        //GenerarGraficaListadoCircularImagenes graficarImagenes = new GenerarGraficaListadoCircularImagenes(null);
-                        graficarImagenes.graficar("Usuarios_con_imagenes");
                         
-                        GenerarGraficaArbolAVL graficador = new GenerarGraficaArbolAVL(arbolUsuarioAVL.getRaiz());
-                        ////le agregamos el id de la capa
-                        graficador.graficar("Usuarios");  
                         
                         //Agregamos al box
                         boxUsuarios.removeAllItems();
@@ -334,12 +348,39 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void btnColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorActionPerformed
         // TODO add your handling code here:
+        /**
         JColorChooser colorSelector = new JColorChooser();
         Color color = colorSelector.showDialog(null, "Seleccione un Color", Color.BLUE);
         String hex = "#"+Integer.toHexString(color.getRGB()).substring(2);
-        System.out.println("Color: "+hex);
+        System.out.println("Color: "+hex);*/
         
         
+        if(arbolCapas != null){//tiene valores
+            //generamos las graficas de matrices
+            arbolCapas.generarGraficasMatrices(arbolCapas.getRaiz()); //Graficamos el arbol AVL
+            GenerarGraficaArbolAVL graficador = new GenerarGraficaArbolAVL(arbolCapas.getRaiz());
+            ////le agregamos el id de la capa
+            graficador.graficar("Capas");  
+            
+                        
+        }
+        if(listadoImagenes != null){
+            GenerarGraficaListadoCircularImagenes graficarImagenes = new GenerarGraficaListadoCircularImagenes(listadoImagenes.getRaiz());
+            //GenerarGraficaListadoCircularImagenes graficarImagenes = new GenerarGraficaListadoCircularImagenes(null);
+            graficarImagenes.graficar("Imagenes");
+        }
+        if(arbolUsuarioAVL != null){
+            //GenerarGraficaArbolAVLUsuario graficarImagenes = new GenerarGraficaArbolAVLUsuario(arbolUsuarioAVL.getRaiz());
+            //GenerarGraficaListadoCircularImagenes graficarImagenes = new GenerarGraficaListadoCircularImagenes(null);
+            //graficarImagenes.graficar("Usuarios_con_imagenes");
+
+            GenerarGraficaArbolAVL graficador = new GenerarGraficaArbolAVL(arbolUsuarioAVL.getRaiz());
+            ////le agregamos el id de la capa
+            graficador.graficar("Usuarios");  
+        }
+        
+        
+        JOptionPane.showMessageDialog(null, "Graficas generadas");
     }//GEN-LAST:event_btnColorActionPerformed
 
     private void btnGenerarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarImagenActionPerformed
@@ -393,11 +434,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     int imagenId = Integer.parseInt(boxImagenes.getSelectedItem().toString());
                     NodoImagen imagenAux = listadoImagenes.buscarNodo(imagenId);
                     if(imagenAux != null){
-                        FuncionesGenerarImagenesListaCapasImagen generarImagenes = new FuncionesGenerarImagenesListaCapasImagen();
-                        generarImagenes.graficar(lienzo, imagenAux.getListadoCapas().getRaiz());
+                        if(imagenAux.getListadoCapas() != null && imagenAux.getListadoCapas().getRaiz() != null){
+                            FuncionesGenerarImagenesListaCapasImagen generarImagenes = new FuncionesGenerarImagenesListaCapasImagen();
+                            generarImagenes.graficar(lienzo, imagenAux.getListadoCapas().getRaiz());
+                        }else{
+                            JOptionPane.showMessageDialog(null, "No tiene capas");
+                        }
+                       
                         
                     }else{
                         System.out.println("Imagen no hallada");
+                        JOptionPane.showMessageDialog(null, "Imagen no hallada");
                     }
                     
                 }else{
@@ -454,6 +501,139 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void boxUsuariosImagenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxUsuariosImagenesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_boxUsuariosImagenesActionPerformed
+
+    private void btnEfectuarCRUDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEfectuarCRUDActionPerformed
+        // TODO add your handling code here:
+        int opcion = boxCRUD.getSelectedIndex();
+        int idAux;
+        try{
+           idAux = Integer.parseInt(txtIdCRUD.getText());
+        }catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(null, "El id de CRUD debe de ser un numero entero");
+            idAux = 0;
+        }
+        
+        /*
+            0. Ingresar nuevo usuario
+            1. Eliminar usuario seleccionado
+            2. Agregar imagen
+            3. Eliminar imagen
+            4. Agregar imagen a usuario
+            5. Eliminar imagen a usuario
+        */
+        switch(opcion){
+            case 0:
+                    if(arbolUsuarioAVL != null){                        
+                       
+                        NodoAVLUsuario nodoUsr = new NodoAVLUsuario(idAux, null);
+                        arbolUsuarioAVL.insertar(nodoUsr);
+                        
+                        //Finalizamos actualizando los cbox
+                        //Agregamos al box
+                        boxUsuarios.removeAllItems();
+                        arbolUsuarioAVL.agregarUsuariosComboBox(boxUsuarios);
+                        //Agregamos el segundo box
+                        agregarImagenesUsuario();
+                        
+                        JOptionPane.showMessageDialog(null, "Usuario creado");
+                    }else{  
+                        JOptionPane.showMessageDialog(null, "Cargue primero los usuarios");
+                    }                
+                break;    
+            case 1:
+                    if(arbolUsuarioAVL != null){                        
+                        arbolUsuarioAVL.borrar(idAux);
+                        
+                        //Finalizamos actualizando los cbox
+                        //Agregamos al box
+                        boxUsuarios.removeAllItems();
+                        arbolUsuarioAVL.agregarUsuariosComboBox(boxUsuarios);
+                        //Agregamos el segundo box
+                        agregarImagenesUsuario();
+                        
+                        JOptionPane.showMessageDialog(null, "Usuario eliminado");
+                    }else{  
+                        JOptionPane.showMessageDialog(null, "Cargue primero los usuarios");
+                    }                
+                break; 
+            case 2:
+                    if(listadoImagenes != null){                        
+                       
+                        NodoImagen nodoImagen = new NodoImagen(idAux);
+                        listadoImagenes.insertarNodo(nodoImagen);
+                        
+                        //Finalizamos actualizando los cbox
+                        //REcargamos el cbox de imagenes
+                        boxImagenes.removeAllItems();
+                        listadoImagenes.agregarImagenesComboBox(boxImagenes);
+                        
+                        JOptionPane.showMessageDialog(null, "imagen creada");
+                    }else{  
+                        JOptionPane.showMessageDialog(null, "Cargue primero los usuarios");
+                    }
+                break;
+            case 3:
+                    if(listadoImagenes != null){                      
+                        listadoImagenes.eliminarNodo(idAux);
+                        //NodoImagen nodoImagen = listadoImagenes.buscarNodo(idAux);
+                        //listadoImagenes.eliminarNodo(nodoImagen);
+                        
+                        //Finalizamos actualizando los cbox
+                        //REcargamos el cbox de imagenes
+                        boxImagenes.removeAllItems();
+                        listadoImagenes.agregarImagenesComboBox(boxImagenes);
+                        
+                        JOptionPane.showMessageDialog(null, "imagen borrada");
+                    }else{  
+                        JOptionPane.showMessageDialog(null, "Cargue primero las imagenes");
+                    }
+                break;
+            case 4:
+                    if(listadoImagenes != null && arbolUsuarioAVL != null){            
+                        int idAuxImagen = Integer.parseInt(boxImagenes.getSelectedItem().toString());
+                        NodoImagen nodoImagen = listadoImagenes.buscarNodo(idAuxImagen);
+                        NodoListaImagen nodoListaImagen = new NodoListaImagen(nodoImagen.getId(), nodoImagen);
+                        
+                        int idAuxUsario = Integer.parseInt(boxUsuarios.getSelectedItem().toString());
+                        NodoAVLUsuario nodoUsuarioAux = arbolUsuarioAVL.buscar(idAuxUsario);
+                        
+                        if(nodoImagen != null && nodoUsuarioAux != null){
+                            nodoUsuarioAux.getListadoImagenesUsuario().insertarNodo(nodoListaImagen);
+                        }
+                        
+                        //Finalizamos actualizando los cbox
+                        //REcargamos el cbox de imagenes
+                        agregarImagenesUsuario();
+                        
+                        JOptionPane.showMessageDialog(null, "imagen agregada al usuario");
+                    }else{  
+                        JOptionPane.showMessageDialog(null, "Cargue primero los usuarios");
+                    }
+                break;
+            case 5:
+                    if(listadoImagenes != null && arbolUsuarioAVL != null){            
+                        int idAuxImagen = Integer.parseInt(boxImagenes.getSelectedItem().toString());
+                        //NodoImagen nodoImagen = listadoImagenes.buscarNodo(idAuxImagen);
+                        
+                        int idAuxUsario = Integer.parseInt(boxUsuarios.getSelectedItem().toString());
+                        NodoAVLUsuario nodoUsuarioAux = arbolUsuarioAVL.buscar(idAuxUsario);
+                        
+                        if(nodoUsuarioAux != null){
+                            nodoUsuarioAux.getListadoImagenesUsuario().eliminarNodo(idAuxImagen);
+                        }
+                        
+                        //Finalizamos actualizando los cbox
+                        //REcargamos el cbox de imagenes
+                        agregarImagenesUsuario();
+                        
+                        JOptionPane.showMessageDialog(null, "imagen removida al usuario");
+                    }else{  
+                        JOptionPane.showMessageDialog(null, "Cargue primero los usuarios");
+                    }
+                break;
+                
+        }
+    }//GEN-LAST:event_btnEfectuarCRUDActionPerformed
 
     public String leerArchivo(String direccion){
         String aux = "";
@@ -537,6 +717,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> boxCRUD;
     private javax.swing.JComboBox<String> boxCapas;
     private javax.swing.JComboBox<String> boxGeneracionImagen;
     private javax.swing.JComboBox<String> boxImagenes;
@@ -545,6 +726,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscarArchivo;
     private javax.swing.JButton btnCargar;
     private javax.swing.JButton btnColor;
+    private javax.swing.JButton btnEfectuarCRUD;
     private javax.swing.JButton btnGenerarImagen;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -552,8 +734,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel lienzo;
     private javax.swing.JPanel panelOpciones;
+    private javax.swing.JFormattedTextField txtIdCRUD;
     private javax.swing.JTextField txtNombreArchivo;
     // End of variables declaration//GEN-END:variables
 }

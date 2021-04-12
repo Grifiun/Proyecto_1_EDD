@@ -94,26 +94,78 @@ public class ListaCircularImagenes {
      */
     public void eliminarNodo(int id){     
         NodoImagen nodoAux = buscarNodo(id);
-        if(nodoAux != null){
-             //punteros
-            NodoImagen nodoAnterior = (NodoImagen) nodoAux.getAnterior();
-            NodoImagen nodoSiguiente = (NodoImagen) nodoAux.getSiguiente();
+        System.out.println("Nodo encontrado");
+        try{
+            if(nodoAux != null){
+                //punteros
+               NodoImagen nodoAnterior = (NodoImagen) nodoAux.getAnterior();
+               NodoImagen nodoSiguiente = (NodoImagen) nodoAux.getSiguiente();
 
-            //areglampos los punteros
-            if(nodoSiguiente != null){
-                nodoSiguiente.setAnterior(nodoAnterior);
-            }
+               //areglampos los punteros
+               if(nodoAnterior != null){
+                   nodoAnterior.setSiguiente(nodoSiguiente);
+               }
+               
+               if(nodoSiguiente != null){
+                   nodoSiguiente.setAnterior(nodoAux.getAnterior());
+               }
 
-            if(nodoAnterior != null){
-                nodoAnterior.setSiguiente(nodoAnterior);
+               
+               //anulamos valores
+               nodoAux.setSiguiente(null);
+               nodoAux.setAnterior(null);
+               nodoAux = null;        
+           }else{
+               System.out.println("Nodo inexistente con el id dado: "+id);
+           }   
+        }catch(Exception ex){
+            System.out.println("ERROR\n\n\n\n\n");
+            ex.printStackTrace();
+        }
+          
+    }
+    
+    
+    /**
+     * Eliminamos un nuevoNodo
+     * @param nuevoNodo 
+     */
+    public void eliminarNodo(NodoImagen nuevoNodo){        
+        elminarNodo(raiz, nuevoNodo);//insertamos
+    }
+    
+    /** 
+     * Metodo recursivo para eliminar nuevos nodos
+     * @param nodoAux
+     * @param nuevoNodo 
+     */
+    private void elminarNodo(NodoImagen nodoAux, NodoImagen nuevoNodo){
+        if(raiz == null){//si no existe una el nodoAuxiliar, en este caso seria el primer nodo, e indica que la lista esta vacia
+            System.out.println("No hay nodos en la lista");
+        }else{//si hay nodos, recorremos hasta encontrar al nodo requerrido ultimo
+            if(nodoAux == nuevoNodo){//enontramos el nodo a eliminar
+                //corregimos punteros
+                //Agregamos puntero de ultimo nodo de la fila, hacia el nuevo nodo
+                nodoAux.setSiguiente(nuevoNodo.getSiguiente());
+                //Agregamos apuntadores del nuevo nodo
+                nuevoNodo.getSiguiente().setAnterior(nodoAux);
+                
+                //anulamos apuntadores
+                nuevoNodo.setSiguiente(null);
+                nuevoNodo.setAnterior(null);
+                return;//terminamos el ciclo
+            }else{
+                if(nodoAux.getSiguiente() != null && nodoAux.getSiguiente() != this.raiz){//verificamos que no sea la raiz, sino nunca termina el ciclo
+                //recorremos el siguiente nodo
+                    elminarNodo((NodoImagen) nodoAux.getSiguiente(), nuevoNodo);
+                }else{
+                    //llegamos al final sin exito
+                    System.out.println("No existe ese nodo dentro de la lista");
+                }
             }
-            //anulamos valores
-            nodoAux.setSiguiente(null);
-            nodoAux.setAnterior(null);
-            nodoAux = null;        
-        }else{
-            System.out.println("Nodo inexistente con el id dado: "+id);
-        }     
+            
+            
+        }
     }
     
     public NodoImagen getRaiz() {
@@ -142,7 +194,12 @@ public class ListaCircularImagenes {
             System.out.println("No hay nodos en la lista");
         }else{//si hay nodos, recorremos hasta que ya no haya ninguno    
                 //agregamos al cobox
-                comboBox.addItem(nodoAux.getId()+"");
+                try{
+                     comboBox.addItem(nodoAux.getId()+"");
+                }catch(Exception ex){
+                    ex.printStackTrace();
+                }
+               
                 if(nodoAux.getSiguiente() != null && nodoAux.getSiguiente() != this.raiz){//verificamos que no sea la raiz, sino nunca termina el ciclo
                 //recorremos el siguiente nodo
                     agregarImagenesComboBox((NodoImagen) nodoAux.getSiguiente(), comboBox);//parseamos
